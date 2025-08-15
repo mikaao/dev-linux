@@ -1,3 +1,4 @@
 {
+  "/api/estacoes/route": "app/api/estacoes/route.js",
   "/page": "app/page.js"
 }

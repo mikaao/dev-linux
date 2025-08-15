@@ -15,9 +15,11 @@
 
 # Histórico de linha de comando (mais recente primeiro):
 :q!
-|2,0,1755135483,,"q!"
+|2,0,1755223988,,"q!"
 :wq
-|2,0,1755134406,,"wq"
+|2,0,1755223984,,"wq"
+:q!]
+|2,0,1755223953,,"q!]"
 :wq!
 |2,0,1755132491,,"wq!"
 :q
@@ -39,66 +41,108 @@
 
 # Registradores:
 ""1	LINE	0
-	    tipop = models.CharField(db_column='TIPOP', max_length=3, db_comment='Tipo da parcela no SAGE, ex. SAA, SAT, IND. Deixar vazio para default VCD/VAC.')  # Field name made lowercase.
-|3,1,1,1,1,0,1755133809,"    tipop = models.CharField(db_column='TIPOP', max_length=3, db_comment='Tipo da parcela no SAGE, ex. SAA, SAT, IND. Deixar vazio para default VCD/VAC.')  # Field name made lowercase."
+	
+|3,1,1,1,1,0,1755223965,""
 "2	LINE	0
-	    ordem = models.PositiveIntegerField(db_column='ORDEM', db_comment='Número da parcela (ordem)')  # Field name made lowercase.
-|3,0,2,1,1,0,1755133809,"    ordem = models.PositiveIntegerField(db_column='ORDEM', db_comment='Número da parcela (ordem)')  # Field name made lowercase."
+	}
+|3,0,2,1,1,0,1755223965,"}"
 "3	LINE	0
-	    parcela = models.ForeignKey('IdPonto', models.DO_NOTHING, db_column='PARCELA', related_name='idcalculos_parcela_set', db_comment='Número do ponto da parcela, aponta para ID_PONTO')  # Field name made lowercase.
-|3,0,3,1,1,0,1755133809,"    parcela = models.ForeignKey('IdPonto', models.DO_NOTHING, db_column='PARCELA', related_name='idcalculos_parcela_set', db_comment='Número do ponto da parcela, aponta para ID_PONTO')  # Field name made lowercase."
+	  }
+|3,0,3,1,1,0,1755223965,"  }"
 "4	LINE	0
-	    nponto = models.ForeignKey('IdPonto', models.DO_NOTHING, db_column='NPONTO', db_comment='Número do ponto calculado, aponta para ID_PONTO')  # Field name made lowercase.
-|3,0,4,1,1,0,1755133809,"    nponto = models.ForeignKey('IdPonto', models.DO_NOTHING, db_column='NPONTO', db_comment='Número do ponto calculado, aponta para ID_PONTO')  # Field name made lowercase."
+	    );
+|3,0,4,1,1,0,1755223965,"    );"
 "5	LINE	0
-	    id = models.BigAutoField(primary_key=True)
-|3,0,5,1,1,0,1755133809,"    id = models.BigAutoField(primary_key=True)"
+	      { status: 500 }
+|3,0,5,1,1,0,1755223965,"      { status: 500 }"
 "6	LINE	0
-	class IdCalculos(models.Model):
-|3,0,6,1,1,0,1755133809,"class IdCalculos(models.Model):"
+	      { message: "Erro interno" },
+|3,0,6,1,1,0,1755223965,"      { message: \"Erro interno\" },"
 "7	LINE	0
-	
-|3,0,7,1,1,0,1755133809,""
+	    return NextResponse.json(
+|3,0,7,1,1,0,1755223965,"    return NextResponse.json("
 "8	LINE	0
-	
-|3,0,8,1,1,0,1755133809,""
+	    console.error(err);
+|3,0,8,1,1,0,1755223965,"    console.error(err);"
 "9	LINE	0
-	        db_table_comment = 'Áreas de fluxo de potência, em geral por empresa'
-|3,0,9,1,1,0,1755133809,"        db_table_comment = 'Áreas de fluxo de potência, em geral por empresa'"
+	  } catch (err) {
+|3,0,9,1,1,0,1755223965,"  } catch (err) {"
 
 # Marcas nos arquivos:
-'0  1  0  /web/sage_data/views.py
-|4,48,1,0,1755135483,"/web/sage_data/views.py"
-'1  57  24  /web/sage_data/views.py
-|4,49,57,24,1755135410,"/web/sage_data/views.py"
-'2  57  24  /web/sage_data/views.py
-|4,50,57,24,1755135410,"/web/sage_data/views.py"
-'3  54  24  /web/sage_data/views.py
-|4,51,54,24,1755134598,"/web/sage_data/views.py"
-'4  54  24  /web/sage_data/views.py
-|4,52,54,24,1755134598,"/web/sage_data/views.py"
-'5  54  24  /web/sage_data/views.py
-|4,53,54,24,1755134598,"/web/sage_data/views.py"
+'0  68  0  ~/src/app/api/pontos/[cod_estacao]/route.ts
+|4,48,68,0,1755223988,"~/src/app/api/pontos/[cod_estacao]/route.ts"
+'1  1  0  ~/src/app/api/pontos/[cod_estacao]/route.ts
+|4,49,1,0,1755223955,"~/src/app/api/pontos/[cod_estacao]/route.ts"
+'2  1  0  ~/src/app/api/pontos/[cod_estacao]/route.ts
+|4,50,1,0,1755223955,"~/src/app/api/pontos/[cod_estacao]/route.ts"
+'3  1  0  /web/sage_data/views.py
+|4,51,1,0,1755135483,"/web/sage_data/views.py"
+'4  57  24  /web/sage_data/views.py
+|4,52,57,24,1755135410,"/web/sage_data/views.py"
+'5  57  24  /web/sage_data/views.py
+|4,53,57,24,1755135410,"/web/sage_data/views.py"
 '6  54  24  /web/sage_data/views.py
 |4,54,54,24,1755134598,"/web/sage_data/views.py"
-'7  8  0  /web/sage_data/web_sgbf/urls.py
-|4,55,8,0,1755134413,"/web/sage_data/web_sgbf/urls.py"
-'8  10  32  /web/sage_data/views.py
-|4,56,10,32,1755134322,"/web/sage_data/views.py"
-'9  10  32  /web/sage_data/views.py
-|4,57,10,32,1755134322,"/web/sage_data/views.py"
+'7  54  24  /web/sage_data/views.py
+|4,55,54,24,1755134598,"/web/sage_data/views.py"
+'8  54  24  /web/sage_data/views.py
+|4,56,54,24,1755134598,"/web/sage_data/views.py"
+'9  54  24  /web/sage_data/views.py
+|4,57,54,24,1755134598,"/web/sage_data/views.py"
 
 # Lista de saltos (mais recente primeiro):
+-'  68  0  ~/src/app/api/pontos/[cod_estacao]/route.ts
+|4,39,68,0,1755223988,"~/src/app/api/pontos/[cod_estacao]/route.ts"
+-'  1  0  ~/src/app/api/pontos/[cod_estacao]/route.ts
+|4,39,1,0,1755223958,"~/src/app/api/pontos/[cod_estacao]/route.ts"
+-'  1  0  ~/src/app/api/pontos/[cod_estacao]/route.ts
+|4,39,1,0,1755223955,"~/src/app/api/pontos/[cod_estacao]/route.ts"
+-'  1  0  /web/sage_data/views.py
+|4,39,1,0,1755135483,"/web/sage_data/views.py"
+-'  1  0  /web/sage_data/views.py
+|4,39,1,0,1755135483,"/web/sage_data/views.py"
+-'  1  0  /web/sage_data/views.py
+|4,39,1,0,1755135483,"/web/sage_data/views.py"
 -'  1  0  /web/sage_data/views.py
 |4,39,1,0,1755135483,"/web/sage_data/views.py"
 -'  57  24  /web/sage_data/views.py
 |4,39,57,24,1755135410,"/web/sage_data/views.py"
 -'  57  24  /web/sage_data/views.py
 |4,39,57,24,1755135410,"/web/sage_data/views.py"
+-'  57  24  /web/sage_data/views.py
+|4,39,57,24,1755135410,"/web/sage_data/views.py"
+-'  57  24  /web/sage_data/views.py
+|4,39,57,24,1755135410,"/web/sage_data/views.py"
+-'  57  24  /web/sage_data/views.py
+|4,39,57,24,1755135410,"/web/sage_data/views.py"
+-'  57  24  /web/sage_data/views.py
+|4,39,57,24,1755135410,"/web/sage_data/views.py"
+-'  57  24  /web/sage_data/views.py
+|4,39,57,24,1755135410,"/web/sage_data/views.py"
+-'  57  24  /web/sage_data/views.py
+|4,39,57,24,1755135410,"/web/sage_data/views.py"
 -'  54  24  /web/sage_data/views.py
 |4,39,54,24,1755135399,"/web/sage_data/views.py"
 -'  54  24  /web/sage_data/views.py
 |4,39,54,24,1755135399,"/web/sage_data/views.py"
+-'  54  24  /web/sage_data/views.py
+|4,39,54,24,1755135399,"/web/sage_data/views.py"
+-'  54  24  /web/sage_data/views.py
+|4,39,54,24,1755135399,"/web/sage_data/views.py"
+-'  54  24  /web/sage_data/views.py
+|4,39,54,24,1755135399,"/web/sage_data/views.py"
+-'  54  24  /web/sage_data/views.py
+|4,39,54,24,1755135399,"/web/sage_data/views.py"
+-'  54  24  /web/sage_data/views.py
+|4,39,54,24,1755135399,"/web/sage_data/views.py"
+-'  54  24  /web/sage_data/views.py
+|4,39,54,24,1755135399,"/web/sage_data/views.py"
+-'  54  24  /web/sage_data/views.py
+|4,39,54,24,1755134598,"/web/sage_data/views.py"
+-'  54  24  /web/sage_data/views.py
+|4,39,54,24,1755134598,"/web/sage_data/views.py"
+-'  54  24  /web/sage_data/views.py
+|4,39,54,24,1755134598,"/web/sage_data/views.py"
 -'  54  24  /web/sage_data/views.py
 |4,39,54,24,1755134598,"/web/sage_data/views.py"
 -'  10  32  /web/sage_data/views.py
@@ -107,190 +151,159 @@
 |4,39,10,32,1755134578,"/web/sage_data/views.py"
 -'  10  32  /web/sage_data/views.py
 |4,39,10,32,1755134578,"/web/sage_data/views.py"
--'  8  0  /web/sage_data/web_sgbf/urls.py
-|4,39,8,0,1755134413,"/web/sage_data/web_sgbf/urls.py"
--'  8  0  /web/sage_data/web_sgbf/urls.py
-|4,39,8,0,1755134413,"/web/sage_data/web_sgbf/urls.py"
--'  8  0  /web/sage_data/web_sgbf/urls.py
-|4,39,8,0,1755134413,"/web/sage_data/web_sgbf/urls.py"
--'  8  0  /web/sage_data/web_sgbf/urls.py
-|4,39,8,0,1755134413,"/web/sage_data/web_sgbf/urls.py"
--'  8  0  /web/sage_data/web_sgbf/urls.py
-|4,39,8,0,1755134413,"/web/sage_data/web_sgbf/urls.py"
--'  8  0  /web/sage_data/web_sgbf/urls.py
-|4,39,8,0,1755134413,"/web/sage_data/web_sgbf/urls.py"
--'  8  0  /web/sage_data/web_sgbf/urls.py
-|4,39,8,0,1755134413,"/web/sage_data/web_sgbf/urls.py"
--'  8  0  /web/sage_data/web_sgbf/urls.py
-|4,39,8,0,1755134413,"/web/sage_data/web_sgbf/urls.py"
--'  1  0  /web/sage_data/web_sgbf/urls.py
-|4,39,1,0,1755134395,"/web/sage_data/web_sgbf/urls.py"
--'  1  0  /web/sage_data/web_sgbf/urls.py
-|4,39,1,0,1755134395,"/web/sage_data/web_sgbf/urls.py"
--'  1  0  /web/sage_data/web_sgbf/urls.py
-|4,39,1,0,1755134395,"/web/sage_data/web_sgbf/urls.py"
--'  1  0  /web/sage_data/web_sgbf/urls.py
-|4,39,1,0,1755134395,"/web/sage_data/web_sgbf/urls.py"
--'  1  0  /web/sage_data/web_sgbf/urls.py
-|4,39,1,0,1755134395,"/web/sage_data/web_sgbf/urls.py"
--'  1  0  /web/sage_data/web_sgbf/urls.py
-|4,39,1,0,1755134395,"/web/sage_data/web_sgbf/urls.py"
--'  1  0  /web/sage_data/web_sgbf/urls.py
-|4,39,1,0,1755134395,"/web/sage_data/web_sgbf/urls.py"
--'  1  0  /web/sage_data/web_sgbf/urls.py
-|4,39,1,0,1755134395,"/web/sage_data/web_sgbf/urls.py"
 -'  10  32  /web/sage_data/views.py
-|4,39,10,32,1755134322,"/web/sage_data/views.py"
+|4,39,10,32,1755134578,"/web/sage_data/views.py"
 -'  10  32  /web/sage_data/views.py
-|4,39,10,32,1755134322,"/web/sage_data/views.py"
--'  52  110  /web/sage_data/views.py
-|4,39,52,110,1755134273,"/web/sage_data/views.py"
--'  52  110  /web/sage_data/views.py
-|4,39,52,110,1755134273,"/web/sage_data/views.py"
--'  52  110  /web/sage_data/views.py
-|4,39,52,110,1755134273,"/web/sage_data/views.py"
--'  52  110  /web/sage_data/views.py
-|4,39,52,110,1755134273,"/web/sage_data/views.py"
--'  52  110  /web/sage_data/views.py
-|4,39,52,110,1755134273,"/web/sage_data/views.py"
--'  52  110  /web/sage_data/views.py
-|4,39,52,110,1755134258,"/web/sage_data/views.py"
--'  52  110  /web/sage_data/views.py
-|4,39,52,110,1755134258,"/web/sage_data/views.py"
--'  1  0  /web/sage_data/views.py
-|4,39,1,0,1755134248,"/web/sage_data/views.py"
--'  1  0  /web/sage_data/views.py
-|4,39,1,0,1755134248,"/web/sage_data/views.py"
--'  1  0  /web/sage_data/views.py
-|4,39,1,0,1755134248,"/web/sage_data/views.py"
--'  1  0  /web/sage_data/views.py
-|4,39,1,0,1755134248,"/web/sage_data/views.py"
--'  1  0  /web/sage_data/views.py
-|4,39,1,0,1755134248,"/web/sage_data/views.py"
--'  1  0  /web/sage_data/views.py
-|4,39,1,0,1755134248,"/web/sage_data/views.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
--'  8  0  /web/sage_data/models.py
-|4,39,8,0,1755133826,"/web/sage_data/models.py"
+|4,39,10,32,1755134578,"/web/sage_data/views.py"
+-'  10  32  /web/sage_data/views.py
+|4,39,10,32,1755134578,"/web/sage_data/views.py"
+-'  10  32  /web/sage_data/views.py
+|4,39,10,32,1755134578,"/web/sage_data/views.py"
+-'  10  32  /web/sage_data/views.py
+|4,39,10,32,1755134578,"/web/sage_data/views.py"
+-'  10  32  /web/sage_data/views.py
+|4,39,10,32,1755134578,"/web/sage_data/views.py"
+-'  10  32  /web/sage_data/views.py
+|4,39,10,32,1755134578,"/web/sage_data/views.py"
+-'  10  32  /web/sage_data/views.py
+|4,39,10,32,1755134578,"/web/sage_data/views.py"
+-'  10  32  /web/sage_data/views.py
+|4,39,10,32,1755134578,"/web/sage_data/views.py"
+-'  8  0  /web/sage_data/web_sgbf/urls.py
+|4,39,8,0,1755134413,"/web/sage_data/web_sgbf/urls.py"
+-'  8  0  /web/sage_data/web_sgbf/urls.py
+|4,39,8,0,1755134413,"/web/sage_data/web_sgbf/urls.py"
+-'  8  0  /web/sage_data/web_sgbf/urls.py
+|4,39,8,0,1755134413,"/web/sage_data/web_sgbf/urls.py"
+-'  8  0  /web/sage_data/web_sgbf/urls.py
+|4,39,8,0,1755134413,"/web/sage_data/web_sgbf/urls.py"
+-'  8  0  /web/sage_data/web_sgbf/urls.py
+|4,39,8,0,1755134413,"/web/sage_data/web_sgbf/urls.py"
+-'  8  0  /web/sage_data/web_sgbf/urls.py
+|4,39,8,0,1755134413,"/web/sage_data/web_sgbf/urls.py"
+-'  8  0  /web/sage_data/web_sgbf/urls.py
+|4,39,8,0,1755134413,"/web/sage_data/web_sgbf/urls.py"
+-'  8  0  /web/sage_data/web_sgbf/urls.py
+|4,39,8,0,1755134413,"/web/sage_data/web_sgbf/urls.py"
+-'  8  0  /web/sage_data/web_sgbf/urls.py
+|4,39,8,0,1755134413,"/web/sage_data/web_sgbf/urls.py"
+-'  8  0  /web/sage_data/web_sgbf/urls.py
+|4,39,8,0,1755134413,"/web/sage_data/web_sgbf/urls.py"
+-'  8  0  /web/sage_data/web_sgbf/urls.py
+|4,39,8,0,1755134413,"/web/sage_data/web_sgbf/urls.py"
+-'  8  0  /web/sage_data/web_sgbf/urls.py
+|4,39,8,0,1755134413,"/web/sage_data/web_sgbf/urls.py"
+-'  8  0  /web/sage_data/web_sgbf/urls.py
+|4,39,8,0,1755134413,"/web/sage_data/web_sgbf/urls.py"
+-'  8  0  /web/sage_data/web_sgbf/urls.py
+|4,39,8,0,1755134413,"/web/sage_data/web_sgbf/urls.py"
+-'  8  0  /web/sage_data/web_sgbf/urls.py
+|4,39,8,0,1755134413,"/web/sage_data/web_sgbf/urls.py"
+-'  8  0  /web/sage_data/web_sgbf/urls.py
+|4,39,8,0,1755134413,"/web/sage_data/web_sgbf/urls.py"
+-'  8  0  /web/sage_data/web_sgbf/urls.py
+|4,39,8,0,1755134413,"/web/sage_data/web_sgbf/urls.py"
+-'  8  0  /web/sage_data/web_sgbf/urls.py
+|4,39,8,0,1755134413,"/web/sage_data/web_sgbf/urls.py"
+-'  8  0  /web/sage_data/web_sgbf/urls.py
+|4,39,8,0,1755134413,"/web/sage_data/web_sgbf/urls.py"
+-'  8  0  /web/sage_data/web_sgbf/urls.py
+|4,39,8,0,1755134413,"/web/sage_data/web_sgbf/urls.py"
+-'  8  0  /web/sage_data/web_sgbf/urls.py
+|4,39,8,0,1755134413,"/web/sage_data/web_sgbf/urls.py"
+-'  8  0  /web/sage_data/web_sgbf/urls.py
+|4,39,8,0,1755134413,"/web/sage_data/web_sgbf/urls.py"
+-'  8  0  /web/sage_data/web_sgbf/urls.py
+|4,39,8,0,1755134413,"/web/sage_data/web_sgbf/urls.py"
+-'  8  0  /web/sage_data/web_sgbf/urls.py
+|4,39,8,0,1755134413,"/web/sage_data/web_sgbf/urls.py"
+-'  8  0  /web/sage_data/web_sgbf/urls.py
+|4,39,8,0,1755134413,"/web/sage_data/web_sgbf/urls.py"
+-'  8  0  /web/sage_data/web_sgbf/urls.py
+|4,39,8,0,1755134413,"/web/sage_data/web_sgbf/urls.py"
+-'  8  0  /web/sage_data/web_sgbf/urls.py
+|4,39,8,0,1755134413,"/web/sage_data/web_sgbf/urls.py"
+-'  8  0  /web/sage_data/web_sgbf/urls.py
+|4,39,8,0,1755134413,"/web/sage_data/web_sgbf/urls.py"
+-'  8  0  /web/sage_data/web_sgbf/urls.py
+|4,39,8,0,1755134413,"/web/sage_data/web_sgbf/urls.py"
+-'  8  0  /web/sage_data/web_sgbf/urls.py
+|4,39,8,0,1755134413,"/web/sage_data/web_sgbf/urls.py"
+-'  8  0  /web/sage_data/web_sgbf/urls.py
+|4,39,8,0,1755134413,"/web/sage_data/web_sgbf/urls.py"
+-'  8  0  /web/sage_data/web_sgbf/urls.py
+|4,39,8,0,1755134413,"/web/sage_data/web_sgbf/urls.py"
+-'  1  0  /web/sage_data/web_sgbf/urls.py
+|4,39,1,0,1755134395,"/web/sage_data/web_sgbf/urls.py"
+-'  1  0  /web/sage_data/web_sgbf/urls.py
+|4,39,1,0,1755134395,"/web/sage_data/web_sgbf/urls.py"
+-'  1  0  /web/sage_data/web_sgbf/urls.py
+|4,39,1,0,1755134395,"/web/sage_data/web_sgbf/urls.py"
+-'  1  0  /web/sage_data/web_sgbf/urls.py
+|4,39,1,0,1755134395,"/web/sage_data/web_sgbf/urls.py"
+-'  1  0  /web/sage_data/web_sgbf/urls.py
+|4,39,1,0,1755134395,"/web/sage_data/web_sgbf/urls.py"
+-'  1  0  /web/sage_data/web_sgbf/urls.py
+|4,39,1,0,1755134395,"/web/sage_data/web_sgbf/urls.py"
+-'  1  0  /web/sage_data/web_sgbf/urls.py
+|4,39,1,0,1755134395,"/web/sage_data/web_sgbf/urls.py"
+-'  1  0  /web/sage_data/web_sgbf/urls.py
+|4,39,1,0,1755134395,"/web/sage_data/web_sgbf/urls.py"
+-'  1  0  /web/sage_data/web_sgbf/urls.py
+|4,39,1,0,1755134395,"/web/sage_data/web_sgbf/urls.py"
+-'  1  0  /web/sage_data/web_sgbf/urls.py
+|4,39,1,0,1755134395,"/web/sage_data/web_sgbf/urls.py"
+-'  1  0  /web/sage_data/web_sgbf/urls.py
+|4,39,1,0,1755134395,"/web/sage_data/web_sgbf/urls.py"
+-'  1  0  /web/sage_data/web_sgbf/urls.py
+|4,39,1,0,1755134395,"/web/sage_data/web_sgbf/urls.py"
+-'  1  0  /web/sage_data/web_sgbf/urls.py
+|4,39,1,0,1755134395,"/web/sage_data/web_sgbf/urls.py"
+-'  1  0  /web/sage_data/web_sgbf/urls.py
+|4,39,1,0,1755134395,"/web/sage_data/web_sgbf/urls.py"
+-'  1  0  /web/sage_data/web_sgbf/urls.py
+|4,39,1,0,1755134395,"/web/sage_data/web_sgbf/urls.py"
+-'  1  0  /web/sage_data/web_sgbf/urls.py
+|4,39,1,0,1755134395,"/web/sage_data/web_sgbf/urls.py"
+-'  1  0  /web/sage_data/web_sgbf/urls.py
+|4,39,1,0,1755134395,"/web/sage_data/web_sgbf/urls.py"
+-'  1  0  /web/sage_data/web_sgbf/urls.py
+|4,39,1,0,1755134395,"/web/sage_data/web_sgbf/urls.py"
+-'  1  0  /web/sage_data/web_sgbf/urls.py
+|4,39,1,0,1755134395,"/web/sage_data/web_sgbf/urls.py"
+-'  1  0  /web/sage_data/web_sgbf/urls.py
+|4,39,1,0,1755134395,"/web/sage_data/web_sgbf/urls.py"
+-'  1  0  /web/sage_data/web_sgbf/urls.py
+|4,39,1,0,1755134395,"/web/sage_data/web_sgbf/urls.py"
+-'  1  0  /web/sage_data/web_sgbf/urls.py
+|4,39,1,0,1755134395,"/web/sage_data/web_sgbf/urls.py"
+-'  1  0  /web/sage_data/web_sgbf/urls.py
+|4,39,1,0,1755134395,"/web/sage_data/web_sgbf/urls.py"
+-'  1  0  /web/sage_data/web_sgbf/urls.py
+|4,39,1,0,1755134395,"/web/sage_data/web_sgbf/urls.py"
+-'  1  0  /web/sage_data/web_sgbf/urls.py
+|4,39,1,0,1755134395,"/web/sage_data/web_sgbf/urls.py"
+-'  1  0  /web/sage_data/web_sgbf/urls.py
+|4,39,1,0,1755134395,"/web/sage_data/web_sgbf/urls.py"
+-'  1  0  /web/sage_data/web_sgbf/urls.py
+|4,39,1,0,1755134395,"/web/sage_data/web_sgbf/urls.py"
+-'  1  0  /web/sage_data/web_sgbf/urls.py
+|4,39,1,0,1755134395,"/web/sage_data/web_sgbf/urls.py"
+-'  1  0  /web/sage_data/web_sgbf/urls.py
+|4,39,1,0,1755134395,"/web/sage_data/web_sgbf/urls.py"
 
 # Histórico de marcas nos arquivos (mais recente primeiro):
+
+> ~/src/app/api/pontos/[cod_estacao]/route.ts
+	*	1755223984	0
+	"	68	0
+	^	68	0
+	.	67	1
+	+	1	0
+	+	1	56
+	+	1	1
+	+	1	56
+	+	67	1
 
 > /web/sage_data/views.py
 	*	1755135475	0

@@ -156,38 +156,35 @@ var { g: global, __dirname } = __turbopack_context__;
 {
 // src/app/api/estacoes/route.ts
 __turbopack_context__.s({
-    "GET": (()=>GET)
+    "GET": (()=>GET),
+    "dynamic": (()=>dynamic)
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/server.js [app-route] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$mysql2$2f$promise$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/mysql2/promise.js [app-route] (ecmascript)");
 ;
 ;
+const dynamic = "force-dynamic";
 async function GET() {
     try {
-        // É uma boa prática usar variáveis de ambiente, mas por enquanto vamos usar os valores diretamente
-        const connection = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$mysql2$2f$promise$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].createConnection({
-            host: '127.0.0.1',
-            user: 'root',
-            password: '@M1ch43l52',
-            database: 'bancotr'
+        const conn = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$mysql2$2f$promise$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].createConnection({
+            host: "127.0.0.1",
+            user: "root",
+            password: "@M1ch43l52",
+            database: "bancotr"
         });
-        // Executa a consulta para buscar as estações
-        const [rows] = await connection.execute('SELECT cod_estacao, estacao, descricao FROM id_estacao ORDER BY estacao');
-        await connection.end();
-        // Retorna os dados como JSON
-        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json(rows);
-    } catch (error) {
-        console.error(error);
-        // Retorna um erro 500 se algo der errado
-        const errorMessage = error instanceof Error ? error.message : 'Erro desconhecido';
-        return new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"](JSON.stringify({
-            message: 'Erro ao conectar ou buscar dados no banco.',
-            error: errorMessage
-        }), {
-            status: 500,
-            headers: {
-                'Content-Type': 'application/json'
-            }
+        /* -- SELECT já com aliases ------------------------------------ */ const [rows] = await conn.execute(`SELECT
+        ESTACAO   AS codigo,        -- sigla (string)
+         DESCRICAO AS nome           -- nome da subestação
+       FROM id_estacao
+       ORDER BY ESTACAO`);
+        await conn.end();
+        /* rows já está no formato [{codigo:"ATL2", nome:"SE Atlântida 2"}] */ return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json(rows);
+    } catch (err) {
+        console.error(err);
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+            message: "Erro ao buscar subestações"
+        }, {
+            status: 500
         });
     }
 }

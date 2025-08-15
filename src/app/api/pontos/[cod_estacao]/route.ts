@@ -1,35 +1,52 @@
 // src/app/api/pontos/[cod_estacao]/route.ts
-import { NextResponse } from 'next/server';
-import mysql from 'mysql2/promise';
+import { NextRequest, NextResponse } from "next/server";
+import mysql from "mysql2/promise";
+
+export const dynamic = "force-dynamic";
 
 export async function GET(
-  request: Request,
-  { params }: { params: { cod_estacao: string } }
+  _req: NextRequest,
+  context: { params: { cod_estacao: string } }
 ) {
-  const codEstacao = params.cod_estacao;
+  const sigla = context.params.cod_estacao.trim().toUpperCase(); // ex.: BGO2
 
   try {
-    const connection = await mysql.createConnection({
-      host: '127.0.0.1',
-      user: 'root',
-      password: '@M1ch43l52', // Sua senha
-      database: 'bancotr',
+    const conn = await mysql.createConnection({
+      host: "127.0.0.1",
+      user: "root",
+      password: "@M1ch43l52",
+      database: "bancotr",
     });
 
-    const [rows] = await connection.execute(
-      'SELECT nponto, id, traducao_id, cod_origem FROM id_ponto WHERE cod_estacao = ? ORDER BY id',
-      [codEstacao]
+    /* ── único SELECT com JOIN ─────────────────────────────────── */
+    const [rows] = await conn.execute<
+      {
+        id:          string;
+        descricao:   string;
+        nPonto:      number;
+        status:      number | null;
+      }[]
+    >(
+      `SELECT
+         p.ID            AS id,
+         p.TRADUCAO_ID   AS descricao,
+         p.NPONTO        AS nPonto,
+         p.COD_ORIGEM    AS status
+       FROM id_ponto   p
+       JOIN id_estacao e ON e.cod_estacao = p.cod_estacao
+       WHERE UPPER(TRIM(e.estacao)) = ?
+       ORDER BY p.NPONTO`,
+      [sigla]
     );
 
-    await connection.end();
+    await conn.end();
 
+    /* se rows.length === 0 então não há pontos para essa sigla      */
     return NextResponse.json(rows);
-
-  } catch (error) {
-    console.error(error);
-    const errorMessage = error instanceof Error ? error.message : 'Erro desconhecido';
-    return new NextResponse(
-      JSON.stringify({ message: 'Erro ao buscar pontos no banco.', error: errorMessage }),
+  } catch (err) {
+    console.error(err);
+    return NextResponse.json(
+      { message: "Erro interno" },
       { status: 500 }
     );
   }
