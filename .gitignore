@@ -1,0 +1,8 @@
+# Bibliotecas
+node_modules/
+.next/
+# Arquivos grandes gerados ou bases
+bancotr/**/*.dat
+bancotr/**/*.zip
+bancotr/**/automaticos/
+bancotr/**/dats_unir/.next/
