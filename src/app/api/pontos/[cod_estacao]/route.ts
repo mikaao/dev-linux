@@ -1,4 +1,3 @@
-// src/app/api/pontos/[cod_estacao]/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import mysql from "mysql2/promise";
 
@@ -18,21 +17,15 @@ export async function GET(
       database: "bancotr",
     });
 
-    /* ── único SELECT com JOIN ─────────────────────────────────── */
     const [rows] = await conn.execute<
-      {
-        id:          string;
-        descricao:   string;
-        nPonto:      number;
-        status:      number | null;
-      }[]
+      { ID: string; TRADUCAO_ID: string; NPONTO: number; COD_ORIGEM: number | null }[]
     >(
       `SELECT
-         p.ID            AS id,
-         p.TRADUCAO_ID   AS descricao,
-         p.NPONTO        AS nPonto,
-         p.COD_ORIGEM    AS status
-       FROM id_ponto   p
+         p.ID           AS id,
+         p.TRADUCAO_ID  AS descricao,
+         p.NPONTO       AS nPonto,
+         p.COD_ORIGEM   AS status
+       FROM id_ponto p
        JOIN id_estacao e ON e.cod_estacao = p.cod_estacao
        WHERE UPPER(TRIM(e.estacao)) = ?
        ORDER BY p.NPONTO`,
@@ -41,13 +34,11 @@ export async function GET(
 
     await conn.end();
 
-    /* se rows.length === 0 então não há pontos para essa sigla      */
-    return NextResponse.json(rows);
+    // RowDataPacket -> objeto literal
+    const pontos = (rows as any[]).map((r) => ({ ...r }));
+    return NextResponse.json(pontos);
   } catch (err) {
     console.error(err);
-    return NextResponse.json(
-      { message: "Erro interno" },
-      { status: 500 }
-    );
+    return NextResponse.json({ message: "Erro interno" }, { status: 500 });
   }
 }

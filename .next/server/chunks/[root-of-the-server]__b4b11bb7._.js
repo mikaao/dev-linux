@@ -154,7 +154,6 @@ module.exports = mod;
 
 var { g: global, __dirname } = __turbopack_context__;
 {
-// src/app/api/estacoes/route.ts
 __turbopack_context__.s({
     "GET": (()=>GET),
     "dynamic": (()=>dynamic)
@@ -172,13 +171,13 @@ async function GET() {
             password: "@M1ch43l52",
             database: "bancotr"
         });
-        /* -- SELECT já com aliases ------------------------------------ */ const [rows] = await conn.execute(`SELECT
-        ESTACAO   AS codigo,        -- sigla (string)
-         DESCRICAO AS nome           -- nome da subestação
+        const [rows] = await conn.execute(`SELECT
+         TRIM(ESTACAO)   AS codigo,
+         TRIM(DESCRICAO) AS nome
        FROM id_estacao
        ORDER BY ESTACAO`);
         await conn.end();
-        /* rows já está no formato [{codigo:"ATL2", nome:"SE Atlântida 2"}] */ return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json(rows);
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json(rows); // [{codigo:"BGO2", nome:"SE Bento …"}]
     } catch (err) {
         console.error(err);
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({

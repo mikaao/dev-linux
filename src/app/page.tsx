@@ -24,11 +24,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  Alert,
-  AlertTitle,
-  AlertDescription,
-} from "@/components/ui/alert";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Input } from "@/components/ui/input";
 import {
@@ -73,17 +69,9 @@ export default function HomePage() {
     async function fetchEstacoes() {
       try {
         const res = await fetch("/api/estacoes");
-        const raw: { estacao: string; descricao: string }[] =
-          await res.json();
+        const data = (await res.json()) as Estacao[];
 
-        const limpas: Estacao[] = raw
-          .map((e) => ({
-            codigo: (e.estacao ?? "").trim(),
-            nome: (e.descricao ?? "").trim(),
-          }))
-          .filter((e) => e.codigo && e.nome);
-
-        setEstacoes(limpas);
+        setEstacoes(data.filter((e) => e.codigo && e.nome));
       } catch (err) {
         console.error(err);
         setError("Erro ao carregar subestações.");
@@ -95,25 +83,27 @@ export default function HomePage() {
   }, []);
 
   /* ---------------------- fetch pontos ---------------------------- */
-useEffect(() => {
-  async function fetchEstacoes() {
-    try {
-      const res = await fetch("/api/estacoes");
-      const data: Estacao[] = await res.json();   // já vem {codigo,nome}
+  useEffect(() => {
+    if (!estacaoSelecionada) return;
 
-      // descarta vazios, se houver
-      setEstacoes(
-        data.filter((e) => e.codigo && e.nome)
-      );
-    } catch (err) {
-      console.error(err);
-      setError("Erro ao carregar subestações.");
-    } finally {
-      setLoadingEstacoes(false);
+    async function fetchPontos() {
+      setLoadingPontos(true);
+      try {
+        const res = await fetch(`/api/pontos/${estacaoSelecionada.codigo}`);
+        const data = (await res.json()) as Ponto[];
+
+        console.log("pontos recebidos", data.length, data[0]);
+        setPontos(data);
+      } catch (err) {
+        console.error(err);
+        setError("Erro ao carregar pontos.");
+      } finally {
+        setLoadingPontos(false);
+      }
     }
-  }
-  fetchEstacoes();
-}, []);
+    fetchPontos();
+  }, [estacaoSelecionada]);
+
   /* ---------------------- helpers --------------------------------- */
   const estacoesFiltradas = estacoes.filter(
     (e) =>
@@ -121,8 +111,22 @@ useEffect(() => {
       e.codigo.toLowerCase().includes(filtro.toLowerCase())
   );
 
-  const statusIcon = (st?: string) => {
-    switch ((st ?? "").toLowerCase()) {
+  const statusIcon = (raw?: number | string | null) => {
+    const val =
+      typeof raw === "number"
+        ? raw
+        : (raw ?? "").toString().toLowerCase();
+
+    const txt =
+      val === 0 || val === "0"
+        ? "ok"
+        : val === 1 || val === 2 || val === "alerta"
+        ? "alerta"
+        : val === 6 || val === "falha"
+        ? "falha"
+        : "";
+
+    switch (txt) {
       case "ok":
         return (
           <TooltipProvider>
@@ -165,10 +169,7 @@ useEffect(() => {
   /* RENDER                                                           */
   /* ---------------------------------------------------------------- */
   return (
-    <ResizablePanelGroup
-      direction="horizontal"
-      className="h-screen border"
-    >
+    <ResizablePanelGroup direction="horizontal" className="h-screen border">
       {/* ---------------- Sidebar ---------------- */}
       <ResizablePanel defaultSize={25} className="bg-gray-50 border-r">
         <div className="p-3">
@@ -188,12 +189,7 @@ useEffect(() => {
             {loadingEstacoes
               ? Array(6)
                   .fill(0)
-                  .map((_, i) => (
-                    <Skeleton
-                      key={i}
-                      className="h-6 w-full"
-                    />
-                  ))
+                  .map((_, i) => <Skeleton key={i} className="h-6 w-full" />)
               : estacoesFiltradas.map((e) => (
                   <li
                     key={e.codigo}
@@ -243,20 +239,20 @@ useEffect(() => {
               <div className="border rounded-lg overflow-hidden shadow-sm">
                 <ScrollArea className="max-h-[75vh] custom-scroll">
                   <Table>
+                    {/* ---------- Cabeçalho na nova ordem ---------- */}
                     <TableHeader className="bg-gray-100 sticky top-0 z-10">
                       <TableRow>
-                        <TableHead className="w-[250px]">
-                          ID do Ponto
+                        <TableHead className="w-24 text-right">
+                          Nº&nbsp;Ponto
                         </TableHead>
                         <TableHead>Descrição</TableHead>
-                        <TableHead className="w-24">
-                          Status
+                        <TableHead className="w-[250px]">
+                          ID&nbsp;do&nbsp;Ponto
                         </TableHead>
-                        <TableHead className="text-right w-24">
-                          Nº Ponto
-                        </TableHead>
+                        <TableHead className="w-24">Status</TableHead>
                       </TableRow>
                     </TableHeader>
+
                     <TableBody>
                       {loadingPontos ? (
                         <TableRow>
@@ -268,20 +264,22 @@ useEffect(() => {
                         pontos.map((p, i) => (
                           <TableRow
                             key={p.id}
-                            className={
-                              i % 2 ? "bg-gray-50" : "bg-white"
-                            }
+                            className={i % 2 ? "bg-gray-50" : "bg-white"}
                           >
-                            <TableCell className="font-mono text-xs">
-                              {p.id}
-                            </TableCell>
-                            <TableCell className="text-sm">
-                              {p.descricao}
-                            </TableCell>
-                            <TableCell>{statusIcon(p.status)}</TableCell>
+                            {/* 1 ▸ Nº Ponto */}
                             <TableCell className="text-right">
                               {p.nPonto}
                             </TableCell>
+                            {/* 2 ▸ Descrição */}
+                            <TableCell className="text-sm">
+                              {p.descricao}
+                            </TableCell>
+                            {/* 3 ▸ ID do Ponto */}
+                            <TableCell className="font-mono text-xs">
+                              {p.id}
+                            </TableCell>
+                            {/* 4 ▸ Status */}
+                            <TableCell>{statusIcon(p.status)}</TableCell>
                           </TableRow>
                         ))
                       ) : (
@@ -305,7 +303,8 @@ useEffect(() => {
                 <Terminal className="h-4 w-4" />
                 <AlertTitle>Nenhuma subestação selecionada</AlertTitle>
                 <AlertDescription>
-                  Selecione uma subestação na barra lateral para visualizar seus pontos.
+                  Selecione uma subestação na barra lateral para visualizar
+                  seus pontos.
                 </AlertDescription>
               </Alert>
             </div>

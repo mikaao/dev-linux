@@ -154,35 +154,46 @@ module.exports = mod;
 
 var { g: global, __dirname } = __turbopack_context__;
 {
-// src/app/api/pontos/[cod_estacao]/route.ts
 __turbopack_context__.s({
-    "GET": (()=>GET)
+    "GET": (()=>GET),
+    "dynamic": (()=>dynamic)
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/server.js [app-route] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$mysql2$2f$promise$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/mysql2/promise.js [app-route] (ecmascript)");
 ;
 ;
-async function GET(request, { params }) {
-    const codEstacao = params.cod_estacao;
+const dynamic = "force-dynamic";
+async function GET(_req, context) {
+    const sigla = context.params.cod_estacao.trim().toUpperCase(); // ex.: BGO2
     try {
-        const connection = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$mysql2$2f$promise$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].createConnection({
-            host: '127.0.0.1',
-            user: 'root',
-            password: '@M1ch43l52',
-            database: 'bancotr'
+        const conn = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$mysql2$2f$promise$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].createConnection({
+            host: "127.0.0.1",
+            user: "root",
+            password: "@M1ch43l52",
+            database: "bancotr"
         });
-        const [rows] = await connection.execute('SELECT nponto, id, traducao_id, cod_origem FROM id_ponto WHERE cod_estacao = ? ORDER BY id', [
-            codEstacao
+        const [rows] = await conn.execute(`SELECT
+         p.ID           AS id,
+         p.TRADUCAO_ID  AS descricao,
+         p.NPONTO       AS nPonto,
+         p.COD_ORIGEM   AS status
+       FROM id_ponto p
+       JOIN id_estacao e ON e.cod_estacao = p.cod_estacao
+       WHERE UPPER(TRIM(e.estacao)) = ?
+       ORDER BY p.NPONTO`, [
+            sigla
         ]);
-        await connection.end();
-        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json(rows);
-    } catch (error) {
-        console.error(error);
-        const errorMessage = error instanceof Error ? error.message : 'Erro desconhecido';
-        return new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"](JSON.stringify({
-            message: 'Erro ao buscar pontos no banco.',
-            error: errorMessage
-        }), {
+        await conn.end();
+        // RowDataPacket -> objeto literal
+        const pontos = rows.map((r)=>({
+                ...r
+            }));
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json(pontos);
+    } catch (err) {
+        console.error(err);
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+            message: "Erro interno"
+        }, {
             status: 500
         });
     }

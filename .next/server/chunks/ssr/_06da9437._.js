@@ -17,10 +17,7 @@ var { g: global, __dirname, m: module, e: exports } = __turbopack_context__;
 {
 const e = new Error(`Could not parse module '[project]/src/app/page.tsx'
 
-failed to convert rope into string
-
-Caused by:
-- invalid utf-8 sequence of 1 bytes from index 1759`);
+Unexpected token `ResizablePanelGroup`. Expected jsx identifier`);
 e.code = 'MODULE_UNPARSEABLE';
 throw e;}}),
 "[project]/src/app/page.tsx [app-rsc] (ecmascript, Next.js server component)": ((__turbopack_context__) => {

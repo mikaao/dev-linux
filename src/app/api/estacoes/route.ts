@@ -1,4 +1,3 @@
-// src/app/api/estacoes/route.ts
 import { NextResponse } from "next/server";
 import mysql from "mysql2/promise";
 
@@ -13,20 +12,16 @@ export async function GET() {
       database: "bancotr",
     });
 
-    /* -- SELECT já com aliases ------------------------------------ */
     const [rows] = await conn.execute(
       `SELECT
-        ESTACAO   AS codigo,        -- sigla (string)
-         DESCRICAO AS nome           -- nome da subestação
+         TRIM(ESTACAO)   AS codigo,
+         TRIM(DESCRICAO) AS nome
        FROM id_estacao
        ORDER BY ESTACAO`
     );
 
     await conn.end();
-
-    /* rows já está no formato [{codigo:"ATL2", nome:"SE Atlântida 2"}] */
-    return NextResponse.json(rows);
-
+    return NextResponse.json(rows); // [{codigo:"BGO2", nome:"SE Bento …"}]
   } catch (err) {
     console.error(err);
     return NextResponse.json(
